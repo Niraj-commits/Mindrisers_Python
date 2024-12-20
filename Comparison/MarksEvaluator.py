@@ -3,7 +3,7 @@
 
 marks = int(input("Enter Your Obtained Marks: "))
 
-if marks >= 90:
+if marks >= 90 and marks<100:
     print("Excellent")
 
 elif marks < 40 :
@@ -20,5 +20,9 @@ elif marks > 60 and marks<70:
 
 elif marks > 70 and marks<80:
     print("Good")
+
 elif marks>80 and marks<90:
     print("Very Good")
+
+else:
+    print("Enter valid marks")
