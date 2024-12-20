@@ -14,14 +14,16 @@ while True:
             result = num1/num2
         else:
             print("Division By Zero\n")
-            continue
+            continue #Continue so that the while loop starts again
 
     elif operator == "*":
         result = num1 * num2
     else:
         print("Enter Valid Operator\n")
-        continue
-    print(result)
-    continue_calc = input("Do You Want to continue?: ")
-    if continue_calc == "No":
+        continue #Continue so that the while loop starts again
+
+    print(f"result = {result}") #Printing Results of any operation at once
+
+    continue_calc = input("Do You Want to continue?: ") #new variable for while to continue or not
+    if continue_calc == "No": #for when stopping the while loop
         break
