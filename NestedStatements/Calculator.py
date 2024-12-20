@@ -2,25 +2,25 @@
 while True:
     num1 = int(input("Enter First Number: "))
     num2 = int(input("Enter Second Number: "))
-    operand = input("Enter Operand(-+/*): ")
-    if operand == "+":
+    operator = input("Enter Operator(-+/*): ")
+    if operator == "+":
         result =  num1+num2
         print(result)
 
-    elif operand == "-":
+    elif operator == "-":
         result = num1-num2
         print(result)
 
-    elif operand == "/":
+    elif operator == "/":
         result = num1/num2
         print(result)
 
-    elif operand == "*":
+    elif operator == "*":
         result = num1 * num2
         print(result)
 
     else:
-        print("Enter Valid Operand")
+        print("Enter Valid Operator")
         break
 
     continue_calc = input("Do You Want to continue?: ")
