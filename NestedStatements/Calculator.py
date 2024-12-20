@@ -5,24 +5,23 @@ while True:
     operator = input("Enter Operator(-+/*): ")
     if operator == "+":
         result =  num1+num2
-        print(result)
 
     elif operator == "-":
         result = num1-num2
-        print(result)
 
     elif operator == "/":
-        result = num1/num2
-        print(result)
+        if num2 != 0:
+            result = num1/num2
+        else:
+            print("Division By Zero\n")
+            continue
 
     elif operator == "*":
         result = num1 * num2
-        print(result)
-
     else:
-        print("Enter Valid Operator")
-        break
-
+        print("Enter Valid Operator\n")
+        continue
+    print(result)
     continue_calc = input("Do You Want to continue?: ")
     if continue_calc == "No":
         break
