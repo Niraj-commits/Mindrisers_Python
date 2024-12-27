@@ -14,12 +14,12 @@ account = {
 username = input("Enter Your Username: ")
 password = input("Enter Your Password: ")
 
-if username in users and password == users[username]:
+if username in users and password == users[username]: #users[username] here is dictionary[key]
     print(f"Hello {username} welcome")
     response = input("What Do you want to do??(Check,Deposit,Withdraw): ")
 
     if response == "Check":
-        print(f"Your Total is : {account[username]}")
+        print(f"Your Total is : {account[username]}") #account[username] here is dictionary[key]
 
     elif response == "Deposit":
         deposit_amount = int(input("Enter the amount you want to deposit: "))
