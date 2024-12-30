@@ -4,6 +4,6 @@ name = input("Enter Your name: ")
 age = int(input("Enter Your age: "))
 
 details = {name:age}
-user_info = open("WriteTask.txt","a")
+user_info = open("../WriteTask.txt", 'a')
 user_info.write(str(details))
 user_info.close()
