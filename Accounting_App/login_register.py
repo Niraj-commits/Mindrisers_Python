@@ -1,5 +1,4 @@
 
-# Todo
 # Requirements
 # ask user if they want to register or login
 # If register, ask user for name and password and store it in a file permanently
@@ -15,7 +14,7 @@ def login():
     username = input("Enter Your username: ")
     password = input("Enter Your Password: ")
 
-    retrieved_data = open("user_data.txt","r")
+    retrieved_data = open("user_data.txt", "r")
     read_data = retrieved_data.read().split(",") #split(",") to know where to split the data
     print(read_data) #returns all the data in list form separated by split(",")
     for i in read_data:
@@ -37,7 +36,7 @@ def register():
 
     stored_data = {username:password}
     json_data = json.dumps(stored_data) #converting dictionary to JSON format
-    user_info = open("user_data.txt","a")
+    user_info = open("user_data.txt", "a")
     user_info.write(json_data+",") #while sending data we added "," so it can be split easily
     user_info.close()
     print("Registration Completed!!!")
