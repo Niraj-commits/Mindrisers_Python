@@ -8,96 +8,104 @@
 
 # Todo: Create a dictionary that stores user data like username and password and another one which stores
 #  the username and amount ask user for credentials and check if user is valid then show them three options
-#  1, check balance 2, withdraw balance and add balance and if the option is check, print the amount of user if option is add ask the user to add in the account and add it with the current balance and lastly if the option is withdraw ask the user for amount and subtract the amount from values and if the withdrawn amount is greater than their balance show them insufficient balance.
-
+#  1, check balance 2, withdraw balance and add balance and if the option is check, print the amount of user if option
+#  is add ask the user to add in the account and add it with the current balance and lastly if the option is withdraw
+#  ask the user for amount and subtract the amount from values and if the withdrawn amount is greater than their balance
+#  show them insufficient balance.
 import json
 
 def check(username):
-    check_account = open("account_data.txt","r")
-    check_data = check_account.read().split(",")
-    user_balance = 0
-    for i in check_data:
+    load_acc_detail = open("account_data.txt","r")
+    data_in_list = load_acc_detail.read().split(",")
+    balance = 0
+    for i in data_in_list :
         if i != "":
-            acc_data_json = json.loads(i)
-            if username in acc_data_json:
-                user_amount = int(acc_data_json.get(username))
-                user_balance += user_amount
-    print(f"Your total is {user_balance}")
-
-
-    check_account.close()
+            dict_data = json.loads(i)
+            value = int(dict_data[username])
+            balance += value
+    print(f"Hi {username}, your current balance is {balance}")
 
 def deposit(username):
-    initial_balance = 0
-    amount = int(input("Enter the amount you want to add: "))
-    add_in_acc = open("account_data.txt","a")
-    final_amount = initial_balance+amount
-    acc_value = {username:final_amount}
-    add_in_json = json.dumps(acc_value)
-    add_in_acc.write(add_in_json+",")
-    add_in_acc.close()
+    deposit_amount = int(input("How much do you want to deposit?: "))
+    for_deposit = open("account_data.txt","a")
+    dict_deposit_amount = {username:deposit_amount}
+    json_amount = json.dumps(dict_deposit_amount)
+    for_deposit.write(json_amount+",")
+    for_deposit.close()
+    print(f"{dict_deposit_amount[username]} deposited successfully!!")
 
-# def withdraw(username):
-#     pass
+
+def withdraw(username):
+    account_detail = open("account_data.txt","r")
+    prev_entries = account_detail.read().split(",")
+    account_detail.close()
+    final_balance = 0
+    for i in prev_entries:
+        if i != "":
+            prev_json_data = json.loads(i)
+            entry_values = int(prev_json_data[username])
+            final_balance += entry_values
+
+    amount = int(input("How much do you want to withdraw?? : "))
+    if final_balance > amount:
+        withdraw_data = open("account_data.txt","a")
+        dict_data = {username:-amount}
+        json_data = json.dumps(dict_data)
+        withdraw_data.write(json_data+",")
+        withdraw_data.close()
+
+        final_balance -= amount
+        print(f"Hi {username} your balance is rs.{final_balance}")
+    else:
+        print("Insufficient Balance")
+
 def login():
-    global isLoggedIn
-    username = input("Enter Your username: ")
-    password = input("Enter Your Password: ")
+    global IsLoggedIn
+    username = input("Enter your username: ")
+    password = input("Enter your password: ")
+    load_data = open("user_data.txt","r")
+    list_data = load_data.read().split(",")
 
-    retrieved_data = open("user_data.txt","r")
-    read_data = retrieved_data.read().split(",") #split(",") to know where to split the data
-    print(read_data) #returns all the data in list form separated by split(",")
-    for i in read_data:
-        if i !="":
-            dict_data = json.loads(i) #doing inside if because the last value is " " which will cause problem
-            if username in dict_data and dict_data[username] == password :
-                print(f"Login Successful! Hello {username}")
-                isLoggedIn = True
+    for data in list_data:
+        if data != "":
+            json_load = json.loads(data)
+            if username in json_load and json_load[username] == password:
+                print(f"Hi {username}")
+                IsLoggedIn = True
 
-    if isLoggedIn:
-        user_choice = int(input('''
-What Do you want to do?
-1. Check
-2. Deposit
-3. Withdraw
---> '''))
-
-        if user_choice == 1:
-            check(username)
-
-        elif user_choice == 2:
-            deposit(username)
-
-        # elif user_choice == 3:
-        #     withdraw(username)
-
-        else:
-            print("invalid operation")
     else:
         print("Wrong Credentials")
-    retrieved_data.close()
 
-
+    if IsLoggedIn:
+        account_info = int(input('''What do you wish to do?
+1. Check Account
+2. Deposit
+3. Withdraw
+(1 or 2 or 3)--> '''))
+        if account_info == 1:
+            check(username)
+        elif account_info == 2:
+            deposit(username)
+        elif account_info == 3:
+            withdraw(username)
 
 def register():
-    username = input("Enter Your Username: ")
-    password = input("Enter New Password: ")
+    username = input("Enter new username: ")
+    password = input("Enter your password: ")
+    user_info = {username:password}
+    user_info_json = json.dumps(user_info)
+    store_data = open("user_data.txt","a")
+    store_data.write(user_info_json+",")
+    store_data.close()
+    print("Registration Successful!!!")
 
-    stored_data = {username:password}
-    json_data = json.dumps(stored_data) #converting dictionary to JSON format
-    user_info = open("user_data.txt","a")
-    user_info.write(json_data+",") #while sending data we added "," so it can be split easily
-    user_info.close()
-    print("Registration Completed!!!")
-
-choice = input("Do you Want to Login or Register: ")
-isLoggedIn = False
-
-if choice == "login":
+user_auth_option = input("Register or Login?? : ").lower()
+IsLoggedIn = False
+if user_auth_option == "login":
     login()
 
-elif choice == "register":
+elif user_auth_option == "register":
     register()
 
 else:
-    print("Please Choose Login or register")
+    print("Please Choose Login or Register")
